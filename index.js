@@ -13,7 +13,7 @@ module.exports.init = function () {
 
     var exports = {},
         Client = require('node-rest-client').Client,
-        http = require('http'),
+        http = require('https'),
         fs = require('fs'),
         unzip = require('unzip'),
         metaparser = require('metaparser'),

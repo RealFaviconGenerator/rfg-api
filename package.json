@@ -1,0 +1,40 @@
+{
+  "name": "rfg-api",
+  "description": "Cross-platform API helper for RealFaviconGenerator",
+  "version": "1.0.1",
+  "private": "true",
+  "homepage": "https://github.com/RealFaviconGenerator/rfg-api",
+  "author": {
+    "name": "Philippe Bernard",
+    "email": "philippe@realfavicongenerator.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:RealFaviconGenerator/rfg-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RealFaviconGenerator/rfg-api/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/RealFaviconGenerator/rfg-api/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "fstream": "^1.0.2",
+    "metaparser": "^1.0.4",
+    "mkdirp": "^0.5.0",
+    "node-rest-client": "^1.4.1",
+    "unzip": "^0.1.11"
+  },
+  "keywords": [
+    "node"
+  ]
+}

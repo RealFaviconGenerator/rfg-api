@@ -25,7 +25,9 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "node test.js"
+    "test": "node test/*.js",
+    "cover": "istanbul cover --dir reports/coverage node_modules/argg tests/*.js",
+    "plato": "plato -d reports/plato index.js"
   },
   "dependencies": {
     "fstream": "^1.0.2",
@@ -36,5 +38,9 @@
   },
   "keywords": [
     "node"
-  ]
+  ],
+  "devDependencies": {
+    "mocha": "^2.3.3",
+    "unzip2": "^0.2.5"
+  }
 }

@@ -7,7 +7,7 @@
  */
 
 /*jslint node:true*/
-module.exports.init = function () {
+module.exports.init = function() {
 
   'use strict';
 
@@ -20,8 +20,8 @@ module.exports.init = function () {
   var fstream = require('fstream');
   var mkdirp = require('mkdirp');
 
-  exports.fileToBase64 = function (file, callback) {
-    fs.readFile(file, { encoding: null }, function (error, file) {
+  exports.fileToBase64 = function(file, callback) {
+    fs.readFile(file, { encoding: null }, function(error, file) {
       if (error) {
         callback(error);
       }
@@ -31,7 +31,11 @@ module.exports.init = function () {
     });
   };
 
-  exports.generateFavicon = function (request, dest, callback) {
+  exports.fileToBase64Sync = function(file) {
+    return fs.readFileSync(file, { encoding: null }).toString('base64');
+  };
+
+  exports.generateFavicon = function(request, dest, callback) {
     var client = new Client();
     var args = {
       data: {
@@ -41,14 +45,15 @@ module.exports.init = function () {
         "Content-Type": "application/json"
       }
     };
-    mkdirp(dest, function () {
-      client.post("https://realfavicongenerator.net/api/favicon", args, function (data, response) {
+
+    mkdirp(dest, function() {
+      client.post("https://realfavicongenerator.net/api/favicon", args, function(data, response) {
         if (response.statusCode !== 200) {
           throw console.log(data);
         }
 
         var writeStream = fstream.Writer(dest);
-        writeStream.on('close', function () {
+        writeStream.on('close', function() {
           callback(data.favicon_generation_result);
         });
 
@@ -60,7 +65,7 @@ module.exports.init = function () {
     });
   };
 
-  exports.injectFaviconMarkups = function (file, htmlCode, opts, callback) {
+  exports.injectFaviconMarkups = function(file, htmlCode, opts, callback) {
     var defaultRemove = [
       'link[rel="shortcut icon"]',
       'link[rel="icon"]',
@@ -88,7 +93,7 @@ module.exports.init = function () {
       source: file,
       add: add,
       remove: remove,
-      callback: function (error, html) {
+      callback: function(error, html) {
         return callback(error, html);
       }
     });

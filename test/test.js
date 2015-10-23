@@ -58,6 +58,16 @@
       });
     });
 
+    describe('#fileToBase64Sync()', function() {
+      it('should return the content of a file encoded in base64', function() {
+        assert.equal(
+          rfg.fileToBase64Sync(path.join(__dirname, 'input', 'very_small.png')),
+          'iVBORw0KGgoAAAANSUhEUgAAAAIAAAADCAIAAAA2iEnWAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA' +
+          'B3RJTUUH3woWBxkR5IGL1wAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUH' +
+          'AAAAHElEQVQI1wXBgQAAAACDsAiCuD9TLN9IXbhSUuJAYwXpQ37pHAAAAABJRU5ErkJggg==');
+      });
+    });
+
     describe('#generateFavicon()', function() {
       this.timeout(5000);
 

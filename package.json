@@ -1,7 +1,7 @@
 {
   "name": "rfg-api",
   "description": "Cross-platform API helper for RealFaviconGenerator",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": "true",
   "homepage": "https://github.com/RealFaviconGenerator/rfg-api",
   "author": {

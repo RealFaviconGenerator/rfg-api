@@ -13,7 +13,7 @@ module.exports.init = function() {
 
   var exports = {};
   var Client = require('node-rest-client').Client;
-  var http = require('https');
+  var http = require('http');
   var fs = require('fs');
   var unzip = require('unzip');
   var metaparser = require('metaparser');
@@ -47,7 +47,7 @@ module.exports.init = function() {
     };
 
     mkdirp(dest, function() {
-      client.post("https://realfavicongenerator.net/api/favicon", args, function(data, response) {
+      client.post("http://realfavicongenerator.net/api/favicon", args, function(data, response) {
         if (response.statusCode !== 200) {
           throw console.log(data);
         }

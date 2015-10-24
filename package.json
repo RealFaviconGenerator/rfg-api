@@ -1,8 +1,7 @@
 {
   "name": "rfg-api",
-  "description": "Cross-platform API helper for RealFaviconGenerator",
-  "version": "1.1.0",
-  "private": "true",
+  "description": "RealFaviconGenerator API",
+  "version": "0.0.1",
   "homepage": "https://github.com/RealFaviconGenerator/rfg-api",
   "author": {
     "name": "Philippe Bernard",
@@ -18,16 +17,13 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/RealFaviconGenerator/rfg-api/blob/master/LICENSE-MIT"
+      "url": "https://opensource.org/licenses/MIT"
     }
   ],
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "node test/*.js",
-    "cover": "istanbul cover --dir reports/coverage node_modules/argg tests/*.js",
-    "plato": "plato -d reports/plato index.js"
   },
   "dependencies": {
     "fstream": "^1.0.2",

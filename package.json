@@ -33,7 +33,9 @@
     "unzip": "^0.1.11"
   },
   "keywords": [
-    "node"
+    "node",
+    "favicon",
+    "realfavicongenerator"
   ],
   "devDependencies": {
     "mocha": "^2.3.3"

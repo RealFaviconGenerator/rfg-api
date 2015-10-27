@@ -105,5 +105,52 @@ module.exports.init = function() {
     }).replace(/^_/, "");
   }
 
+  exports.camelCaseToUnderscoreRequest = function(request) {
+    if (request === undefined) {
+      return undefined;
+    }
+    if (request.constructor === Array) {
+      for (var i = 0; i < request.length; i++) {
+        request[i] = exports.camelCaseToUnderscoreRequest(request[i]);
+      }
+    }
+    else if (request.constructor === String) {
+      return exports.camelCaseToUnderscore(request);
+    }
+    else if (request.constructor === Object) {
+      var keys = Object.keys(request);
+      for (var j = 0; j < keys.length; j++) {
+        var key = keys[j];
+        var uKey = exports.camelCaseToUnderscore(keys[j]);
+
+        // Special case for some keys: content should be passed as is
+        var keysToIgnore = [
+          'scaling_algorithm',
+          'name',
+          'content',
+          'param_name',
+          'param_value',
+          'description',
+          'app_description',
+          'developer_name',
+          'app_name'];
+        var newContent = (keysToIgnore.indexOf(uKey) >= 0)
+          ? request[key]
+          : exports.camelCaseToUnderscoreRequest(request[key]);
+
+        if (key !== uKey) {
+          request[uKey] = newContent;
+          delete request[key];
+        }
+        else {
+          request[key] = newContent;
+        }
+      }
+    }
+
+    return request;
+  }
+
+
   return exports;
 };

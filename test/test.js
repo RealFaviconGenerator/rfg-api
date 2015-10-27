@@ -139,6 +139,48 @@
         assert.equal('hello', rfg.camelCaseToUnderscore('Hello'));
         // No effect on an underscore string
         assert.equal('hello_world', rfg.camelCaseToUnderscore('hello_world'));
+        // Numbers
+        assert.equal('option1_a', rfg.camelCaseToUnderscore('option1A'));
+      });
+    });
+
+    describe('#camelCaseToUnderscoreRequest()', function() {
+      it('should convert a JS request (camelcase) to an RFG request (underscore)', function() {
+        assert.deepEqual(rfg.camelCaseToUnderscoreRequest({}), {});
+        
+        assert.equal(rfg.camelCaseToUnderscoreRequest(undefined), undefined);
+
+        assert.deepEqual(rfg.camelCaseToUnderscoreRequest({
+          firstEntry: 'firstValue',
+          secondEntry: [
+            'aValue',
+            'anotherValue',
+            8,
+            {
+              aSubHash: 'itsValue',
+              scaling_algorithm: 'NearestNeighbor'
+            }
+          ],
+          thirdEntry: {
+            firstSubEntry: 'itsValue',
+            secondSubEntry: 'anotherValue'
+          }
+        }), {
+          first_entry: 'first_value',
+          second_entry: [
+            'a_value',
+            'another_value',
+            8,
+            {
+              a_sub_hash: 'its_value',
+              scaling_algorithm: 'NearestNeighbor'
+            }
+          ],
+          third_entry: {
+            first_sub_entry: 'its_value',
+            second_sub_entry: 'another_value'
+          }
+        });
       });
     });
 

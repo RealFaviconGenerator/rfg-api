@@ -140,6 +140,15 @@
       });
     });
 
+    describe('#camelCaseToUnderscore()', function() {
+      it('should turn camel case to underscores', function() {
+        assert.equal('hello', rfg.camelCaseToUnderscore('hello'));
+        assert.equal('hello_world', rfg.camelCaseToUnderscore('helloWorld'));
+        assert.equal('hello_world_this_is_a_long_string', rfg.camelCaseToUnderscore('helloWorldThisIsALongString'));
+        assert.equal('hello', rfg.camelCaseToUnderscore('Hello'));
+      });
+    });
+
   });
 
 }());

@@ -99,5 +99,11 @@ module.exports.init = function() {
     });
   };
 
+  exports.camelCaseToUnderscore = function(s) {
+    return s.replace(/(?:^|\.?)([A-Z])/g, function(x,y) {
+      return "_" + y.toLowerCase()
+    }).replace(/^_/, "");
+  }
+
   return exports;
 };

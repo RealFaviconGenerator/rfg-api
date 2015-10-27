@@ -142,10 +142,16 @@
 
     describe('#camelCaseToUnderscore()', function() {
       it('should turn camel case to underscores', function() {
+        // One word
         assert.equal('hello', rfg.camelCaseToUnderscore('hello'));
+        // Two words
         assert.equal('hello_world', rfg.camelCaseToUnderscore('helloWorld'));
+        // Long string and there are two consecutive uppercase letters
         assert.equal('hello_world_this_is_a_long_string', rfg.camelCaseToUnderscore('helloWorldThisIsALongString'));
+        // First letter is uppercased
         assert.equal('hello', rfg.camelCaseToUnderscore('Hello'));
+        // No effect on an underscore string
+        assert.equal('hello_world', rfg.camelCaseToUnderscore('hello_world'));
       });
     });
 

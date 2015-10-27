@@ -17,19 +17,6 @@
                 'link[href="favicons/favicon-160x160.png"]'
             ]
         };
-/*
-    api.file_to_base64('test/sample_picture.png', function (file) {
-        console.log('Generated base64 file: ' + file.substr(0, 10) + '...');
-    });
-
-    api.generate_favicon(request, './favicons/', function (data) {
-        console.log('Generated favicons data: ' + data);
-    });
-
-    api.generate_favicon_markups('./index.html', markup, opts, function (html, add) {
-        console.log('Generated favicon markup: ' + html.substr(0, 10) + '... with elements added: ' + add.join('').substr(0, 10) + '...');
-    });
-*/
 
   var assert = require('assert');
   var path = require('path');

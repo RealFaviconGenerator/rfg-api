@@ -1,7 +1,7 @@
 {
   "name": "rfg-api",
   "description": "RealFaviconGenerator API",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/RealFaviconGenerator/rfg-api",
   "author": {
     "name": "Philippe Bernard",
@@ -23,8 +23,7 @@
   "engines": {
     "node": ">= 0.8.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "fstream": "^1.0.2",
     "metaparser": "^1.0.4",

@@ -49,12 +49,19 @@ module.exports.init = function() {
     mkdirp(dest, function() {
       client.post("http://realfavicongenerator.net/api/favicon", args, function(data, response) {
         if (response.statusCode !== 200) {
-          throw console.log(data);
+          var err = (
+            data &&
+            data.favicon_generation_result &&
+            data.favicon_generation_result.result &&
+            data.favicon_generation_result.result.error_message)
+            ? data.favicon_generation_result.result.error_message
+            : data;
+          callback(err, args);
         }
 
         var writeStream = fstream.Writer(dest);
         writeStream.on('close', function() {
-          callback(data.favicon_generation_result);
+          callback(undefined, data.favicon_generation_result);
         });
 
         var parserStream = unzip.Parse();

@@ -14,3 +14,18 @@ To install it:
 ```shell
 npm install rfg-api --save
 ```
+
+## Release History
+
+### 0.0.3
+
+- In case of API invocation error, the error is transmitted to the callback
+(instead of being thrown).
+
+### 0.0.2
+
+- Refactoring
+
+### 0.0.1
+
+- Initial release

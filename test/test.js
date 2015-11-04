@@ -82,7 +82,9 @@ describe('RFG Api', function() {
             "scaling_algorithm": "NearestNeighbor"
           }
         };
-        rfg.generateFavicon(req, path.join(__dirname, 'output'), function(result) {
+        rfg.generateFavicon(req, path.join(__dirname, 'output'), function(err, result) {
+          assert.equal(err, undefined);
+
           // Make sure iOS icons were generated, but not desktop icons
           assert(fs.statSync(path.join(__dirname, 'output', 'apple-touch-icon.png')).isFile());
           assert(! fs.existsSync(path.join(__dirname, 'output', 'favicon.ico')));

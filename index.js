@@ -158,6 +158,94 @@ module.exports.init = function() {
     return request;
   }
 
+  function startsWith(str, prefix) {
+    return str.lastIndexOf(prefix, 0) === 0;
+  }
+
+  exports.isUrl = function(urlOrPath) {
+    return startsWith(urlOrPath, 'http://') ||
+      startsWith(urlOrPath, 'https://') ||
+      startsWith(urlOrPath, '//');
+  }
+
+  exports.normalizeMasterPicture = function(masterPicture) {
+    if ((masterPicture.type === 'inline') || (masterPicture.content !== undefined)) {
+      masterPicture.type = 'inline';
+      masterPicture.content = exports.fileToBase64Sync(masterPicture.content);
+    }
+    return masterPicture;
+  }
+
+  exports.normalizeAllMasterPictures = function(request) {
+    if (request.constructor === Array) {
+      for (var i = 0; i < request.length; i++) {
+        request[i] = exports.normalizeAllMasterPictures(request[i]);
+      }
+      return request;
+    }
+    else if (request.constructor === Object) {
+      var keys = Object.keys(request);
+      for (var j = 0; j < keys.length; j++) {
+        if (keys[j] === 'master_picture') {
+          request[keys[j]] = exports.normalizeMasterPicture(request[keys[j]]);
+        }
+        else {
+          request[keys[j]] = exports.normalizeAllMasterPictures(request[keys[j]]);
+        }
+      }
+      return request;
+    }
+    else {
+      return request;
+    }
+  }
+
+  // opts should contain:
+  // - apiKey
+  // - masterPicture (can be a URL or a path to a local file)
+  // - iconsPath (or undefined if the files are in the root)
+  // - design
+  // - settings
+  // - versioning
+  exports.createRequest = function(opts) {
+    // Build favicon generation request
+    var request = {};
+    request.api_key = opts.apiKey;
+    // Master picture
+    request.master_picture = {};
+    if (exports.isUrl(opts.masterPicture)) {
+      request.master_picture.type = 'url';
+      request.master_picture.url = opts.masterPicture;
+    }
+    else {
+      request.master_picture.type = 'inline';
+      request.master_picture.content = exports.fileToBase64Sync(opts.masterPicture);
+    }
+    // Path
+    request.files_location = {};
+    if (opts.iconsPath === undefined) {
+      request.files_location.type = 'root';
+    }
+    else {
+      request.files_location.type = 'path';
+      request.files_location.path = opts.iconsPath;
+    }
+    // Design
+    request.favicon_design = exports.normalizeAllMasterPictures(
+      exports.camelCaseToUnderscoreRequest(opts.design));
+
+    // Settings
+    if (opts.settings) {
+      request.settings = exports.camelCaseToUnderscoreRequest(opts.settings);
+    }
+
+    // Versioning
+    if (opts.versioning) {
+      request.versioning = exports.camelCaseToUnderscoreRequest(opts.versioning);
+    }
+
+    return request;
+  };
 
   return exports;
 };

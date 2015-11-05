@@ -184,5 +184,152 @@ describe('RFG Api', function() {
       });
     });
   });
+});
 
+describe('Request helpers', function() {
+  describe('#isUrl()', function() {
+    it('should set path and URL apart', function() {
+      assert( rfg.isUrl('http://www.example.com'));
+      assert( rfg.isUrl('https://www.example.com'));
+      assert(!rfg.isUrl('/my/project'));
+      assert(!rfg.isUrl('images/mu_pic.png'));
+    });
+  });
+
+  describe('#normalizeMasterPicture()', function() {
+    it('should inline file content when necessary', function() {
+      assert.deepEqual(rfg.normalizeMasterPicture({
+        type: 'inline',
+        content: path.join(__dirname, 'input', 'small_file.txt')
+      }), {
+        type: 'inline',
+        content: "U29tZSByYW5kb20gY29udGVudA=="
+      });
+
+      assert.deepEqual(rfg.normalizeMasterPicture({
+        content: path.join(__dirname, 'input', 'small_file.txt')
+      }), {
+        type: 'inline',
+        content: "U29tZSByYW5kb20gY29udGVudA=="
+      });
+
+      var urlMP = {
+        type: 'url',
+        url: 'http://www.example.com/a_picture.png'
+      };
+      assert.deepEqual(rfg.normalizeMasterPicture(urlMP), urlMP);
+    });
+  });
+
+  describe('#normalizeAllMasterPictures()', function() {
+    it('should inline all master pictures of a request', function() {
+      var dummyRequest = {
+        master_picture: {
+          content: path.join(__dirname, 'input', 'small_file.txt')
+        },
+        stuff: [
+          {
+            a: 'b',
+            master_picture: {
+              type: 'inline',
+              content: path.join(__dirname, 'input', 'small_file.txt')
+            }
+          }
+        ]
+      };
+
+      var normRequest = {
+        master_picture: {
+          type: 'inline',
+          content: "U29tZSByYW5kb20gY29udGVudA=="
+        },
+        stuff: [
+          {
+            a: 'b',
+            master_picture: {
+              type: 'inline',
+              content: "U29tZSByYW5kb20gY29udGVudA=="
+            }
+          }
+        ]
+      };
+
+      assert.deepEqual(rfg.normalizeAllMasterPictures(dummyRequest), normRequest);
+    });
+  });
+
+  describe('#createRequest()', function() {
+    it('should generate a RFG API request without settings or versioning', function() {
+      assert.deepEqual(rfg.createRequest({
+        apiKey: '123azerty',
+        masterPicture: path.join(__dirname, 'input', 'small_file.txt'),
+        iconsPath: '/path/to/icons',
+        design: {
+          desktop: {},
+          ios: {
+            masterPicture: {
+              content: path.join(__dirname, 'input', 'small_file.txt'),
+            },
+            pictureAspect: 'noChange'
+          }
+        }
+      }),{
+        api_key: '123azerty',
+        favicon_design: {
+          desktop: {},
+          ios: {
+            master_picture: {
+              content: "U29tZSByYW5kb20gY29udGVudA==",
+              type: 'inline'
+            },
+            picture_aspect: 'no_change'
+          }
+        },
+        files_location: {
+          path: '/path/to/icons',
+          type: 'path'
+        },
+        master_picture: {
+          content: "U29tZSByYW5kb20gY29udGVudA==",
+          type: 'inline'
+        }
+      });
+    });
+
+    it('should generate a RFG API request with settings or versioning', function() {
+      assert.deepEqual(rfg.createRequest({
+        apiKey: '123azerty',
+        masterPicture: path.join(__dirname, 'input', 'small_file.txt'),
+        design: {
+          desktop: {}
+        },
+        settings: {
+          compression: 3
+        },
+        versioning: {
+          paramName: 'theName',
+          paramValue: '123abc'
+        }
+      }),{
+        api_key: '123azerty',
+        favicon_design: {
+          desktop: {}
+        },
+        settings: {
+          compression: 3
+        },
+        versioning: {
+          param_name: 'theName',
+          param_value: '123abc'
+        },
+        files_location: {
+          type: 'root'
+        },
+        master_picture: {
+          content: "U29tZSByYW5kb20gY29udGVudA==",
+          type: 'inline'
+        }
+      });
+    });
+  });
 });

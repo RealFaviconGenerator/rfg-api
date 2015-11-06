@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.1.0
+
+- `injectFaviconMarkups` now takes the HTML content directly, not a file name.
+
 ### 0.0.3
 
 - In case of API invocation error, the error is transmitted to the callback

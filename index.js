@@ -72,7 +72,7 @@ module.exports.init = function() {
     });
   };
 
-  exports.injectFaviconMarkups = function(file, htmlCode, opts, callback) {
+  exports.injectFaviconMarkups = function(fileContent, htmlCode, opts, callback) {
     var defaultRemove = [
       'link[rel="shortcut icon"]',
       'link[rel="icon"]',
@@ -97,7 +97,7 @@ module.exports.init = function() {
     }
 
     metaparser({
-      source: file,
+      data: fileContent,
       add: add,
       remove: remove,
       callback: function(error, html) {

@@ -106,7 +106,8 @@ describe('RFG Api', function() {
         '<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">',
         '<link rel="icon" type="image/png" href="favicons/favicon-160x160.png" sizes="160x160">'
       ];
-      rfg.injectFaviconMarkups(path.join(__dirname, 'input', 'test_1.html'), markups, {}, function(error, html) {
+      var fileContent = fs.readFileSync(path.join(__dirname, 'input', 'test_1.html'));
+      rfg.injectFaviconMarkups(fileContent, markups, {}, function(error, html) {
         var expected = fs.readFileSync(path.join(__dirname, 'input', 'test_1_expected_output.html')).toString();
         assert.equal(html, expected);
 
@@ -119,7 +120,8 @@ describe('RFG Api', function() {
         '<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">',
         '<link rel="icon" type="image/png" href="favicons/favicon-160x160.png" sizes="160x160">'
       ];
-      rfg.injectFaviconMarkups(path.join(__dirname, 'input', 'test_2.html'), markups, {}, function(error, html) {
+      var fileContent = fs.readFileSync(path.join(__dirname, 'input', 'test_2.html'));
+      rfg.injectFaviconMarkups(fileContent, markups, {}, function(error, html) {
         var expected = fs.readFileSync(path.join(__dirname, 'input', 'test_2_expected_output.html')).toString();
         assert.equal(html, expected);
 

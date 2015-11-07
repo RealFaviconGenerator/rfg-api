@@ -14,12 +14,7 @@
   "bugs": {
     "url": "https://github.com/RealFaviconGenerator/rfg-api/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "engines": {
     "node": ">= 0.8.0"
   },

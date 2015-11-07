@@ -26,7 +26,7 @@
   "scripts": {},
   "dependencies": {
     "fstream": "^1.0.2",
-    "metaparser": "^1.0.4",
+    "metaparser": "^1.0.7",
     "mkdirp": "^0.5.0",
     "node-rest-client": "^1.4.1",
     "unzip": "^0.1.11"

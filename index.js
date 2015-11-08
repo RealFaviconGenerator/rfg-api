@@ -247,5 +247,23 @@ module.exports.init = function() {
     return request;
   };
 
+  exports.changeLog = function(sinceVersion, callback) {
+    var client = new Client();
+    var args = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    var versionParam = (sinceVersion == undefined) ? '' : "?since=" + sinceVersion;
+    client.post("http://realfavicongenerator.net/api/versions" + versionParam, args, function(data, response) {
+      if (response.statusCode !== 200) {
+        callback(data);
+      }
+
+      callback(undefined, data);
+    });
+  };
+
   return exports;
 };

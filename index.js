@@ -175,6 +175,10 @@ module.exports.init = function() {
         masterPictureObject.type = 'inline';
         masterPictureObject.content = exports.fileToBase64Sync(masterPicture.content);
       }
+      else if (masterPicture.url) {
+        masterPictureObject.type = 'url';
+        masterPictureObject.url = masterPicture.url;
+      }
     }
     else if (exports.isUrl(masterPicture)) {
       masterPictureObject.type = 'url';

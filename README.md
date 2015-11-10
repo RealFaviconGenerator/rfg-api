@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.1.2
+
+- Improvement in `normalizeMasterPicture`.
+
 ### 0.1.1
 
 - `changeLog` added.

@@ -169,11 +169,26 @@ module.exports.init = function() {
   }
 
   exports.normalizeMasterPicture = function(masterPicture) {
-    if ((masterPicture.type === 'inline') || (masterPicture.content !== undefined)) {
-      masterPicture.type = 'inline';
-      masterPicture.content = exports.fileToBase64Sync(masterPicture.content);
+    var masterPictureObject = {};
+    if (masterPicture.constructor === Object) {
+      if ((masterPicture.type === 'inline') || (masterPicture.content !== undefined)) {
+        masterPictureObject.type = 'inline';
+        masterPictureObject.content = exports.fileToBase64Sync(masterPicture.content);
+      }
+      else if (masterPicture.url) {
+        masterPictureObject.type = 'url';
+        masterPictureObject.url = masterPicture.url;
+      }
     }
-    return masterPicture;
+    else if (exports.isUrl(masterPicture)) {
+      masterPictureObject.type = 'url';
+      masterPictureObject.url = masterPicture;
+    }
+    else {
+      masterPictureObject.type = 'inline';
+      masterPictureObject.content = exports.fileToBase64Sync(masterPicture);
+    }
+    return masterPictureObject;
   }
 
   exports.normalizeAllMasterPictures = function(request) {
@@ -212,15 +227,7 @@ module.exports.init = function() {
     var request = {};
     request.api_key = opts.apiKey;
     // Master picture
-    request.master_picture = {};
-    if (exports.isUrl(opts.masterPicture)) {
-      request.master_picture.type = 'url';
-      request.master_picture.url = opts.masterPicture;
-    }
-    else {
-      request.master_picture.type = 'inline';
-      request.master_picture.content = exports.fileToBase64Sync(opts.masterPicture);
-    }
+    request.master_picture = exports.normalizeMasterPicture(opts.masterPicture);
     // Path
     request.files_location = {};
     if (opts.iconsPath === undefined) {

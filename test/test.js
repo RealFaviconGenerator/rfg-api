@@ -4,6 +4,7 @@
 
 var api = require('../index.js').init();
 var request = require('./request.json');
+var rimraf = require('rimraf');
 
 var markup = [
   '<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">',
@@ -23,6 +24,17 @@ var rfg = require('../index.js').init();
 var fs = require('fs');
 
 describe('RFG Api', function() {
+
+  beforeEach(function() {
+    if (! fs.existsSync(path.join(__dirname, 'output'))) {
+      fs.mkdirSync(path.join(__dirname, 'output'));
+    }
+  });
+
+  afterEach(function() {
+    rimraf.sync(path.join(__dirname, 'output'));
+  });
+
   describe('#fileToBase64()', function() {
     it('should return the content of a file encoded in base64', function(done) {
       rfg.fileToBase64(path.join(__dirname, 'input', 'very_small.png'), function(error, base64) {
@@ -55,7 +67,7 @@ describe('RFG Api', function() {
   });
 
   describe('#generateFavicon()', function() {
-    this.timeout(5000);
+    this.timeout(8000);
 
     it('should generate a favicon', function(done) {
       rfg.fileToBase64(path.join(__dirname, 'input', 'master_picture.png'), function(error, base64) {
@@ -93,6 +105,40 @@ describe('RFG Api', function() {
           assert(result.favicon.html_code);
           assert(result.favicon.html_code.length > 500);
           assert(result.favicon.html_code.length < 1500);
+
+          done();
+        });
+      });
+    });
+
+    it('should generate a favicon based on an SVG image', function(done) {
+      rfg.fileToBase64(path.join(__dirname, 'input', 'master_picture.svg'), function(error, base64) {
+        assert.equal(error, undefined);
+        var req = {
+          "api_key": "f26d432783a1856427f32ed8793e1d457cc120f1",
+          "master_picture": {
+            "type": "inline",
+            "content": base64
+          },
+          "files_location": {
+            "type": "path",
+            "path": "favicons/"
+          },
+          "favicon_design": {
+            "desktop_browser": {}
+          }
+        };
+        rfg.generateFavicon(req, path.join(__dirname, 'output'), function(err, result) {
+          assert.equal(err, undefined);
+
+          // Make sure desktop icons were generated, but not iOS icons
+          assert(! fs.existsSync(path.join(__dirname, 'output', 'apple-touch-icon.png')));
+          assert(fs.statSync(path.join(__dirname, 'output', 'favicon.ico')).isFile());
+
+          // Make sure some code is returned
+          assert(result.favicon.html_code);
+          assert(result.favicon.html_code.length > 200);
+          assert(result.favicon.html_code.length < 1000);
 
           done();
         });

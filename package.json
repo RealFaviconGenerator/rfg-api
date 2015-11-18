@@ -18,7 +18,9 @@
   "engines": {
     "node": ">= 0.8.0"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "fstream": "^1.0.2",
     "metaparser": "^1.0.7",

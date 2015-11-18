@@ -74,6 +74,7 @@ module.exports.init = function() {
 
   exports.injectFaviconMarkups = function(fileContent, htmlCode, opts, callback) {
     var defaultRemove = [
+      'link[rel="mask-icon"]',
       'link[rel="shortcut icon"]',
       'link[rel="icon"]',
       'link[rel^="apple-touch-icon"]',

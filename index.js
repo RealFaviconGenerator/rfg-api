@@ -13,7 +13,7 @@ module.exports.init = function() {
 
   var exports = {};
   var Client = require('node-rest-client').Client;
-  var http = require('http');
+  var https = require('https');
   var fs = require('fs');
   var unzip = require('unzip');
   var metaparser = require('metaparser');
@@ -47,7 +47,7 @@ module.exports.init = function() {
     };
 
     mkdirp(dest, function() {
-      client.post("http://realfavicongenerator.net/api/favicon", args, function(data, response) {
+      client.post("https://realfavicongenerator.net/api/favicon", args, function(data, response) {
         if (response.statusCode !== 200) {
           var err = (
             data &&
@@ -65,7 +65,7 @@ module.exports.init = function() {
         });
 
         var parserStream = unzip.Parse();
-        var request = http.get(data.favicon_generation_result.favicon.package_url, function (response) {
+        var request = https.get(data.favicon_generation_result.favicon.package_url, function (response) {
           response.pipe(parserStream).pipe(writeStream);
         });
       });
@@ -264,7 +264,7 @@ module.exports.init = function() {
     };
 
     var versionParam = (sinceVersion == undefined) ? '' : "?since=" + sinceVersion;
-    client.post("http://realfavicongenerator.net/api/versions" + versionParam, args, function(data, response) {
+    client.post("https://realfavicongenerator.net/api/versions" + versionParam, args, function(data, response) {
       if (response.statusCode !== 200) {
         callback(data);
       }

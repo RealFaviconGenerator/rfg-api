@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.1.4
+
+- Switch to HTTPS.
+
 ### 0.1.3
 
 - Existing `rel=mask-icon` markups are filtered-out.

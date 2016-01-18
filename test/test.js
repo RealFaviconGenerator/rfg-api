@@ -67,7 +67,7 @@ describe('RFG Api', function() {
   });
 
   describe('#generateFavicon()', function() {
-    this.timeout(10000);
+    this.timeout(15000);
 
     it('should generate a favicon', function(done) {
       rfg.fileToBase64(path.join(__dirname, 'input', 'master_picture.png'), function(error, base64) {
@@ -235,6 +235,14 @@ describe('RFG Api', function() {
 });
 
 describe('Request helpers', function() {
+  describe('#escapeJSONSpecialChars()', function() {
+    it('should escape special characters', function() {
+      assert.equal('hello', rfg.escapeJSONSpecialChars('hello'));
+      assert.equal('\"hello\"', rfg.escapeJSONSpecialChars('"hello"'));
+      assert.equal('e\&p', rfg.escapeJSONSpecialChars('e&p'));
+    });
+  });
+
   describe('#isUrl()', function() {
     it('should set path and URL apart', function() {
       assert( rfg.isUrl('http://www.example.com'));

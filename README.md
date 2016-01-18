@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.1.5
+
+- Add `escapeJSONSpecialChars`.
+
 ### 0.1.4
 
 - Switch to HTTPS.

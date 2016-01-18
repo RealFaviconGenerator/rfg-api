@@ -141,7 +141,8 @@ module.exports.init = function() {
           'description',
           'app_description',
           'developer_name',
-          'app_name'];
+          'app_name',
+          'existing_manifest'];
         var newContent = (keysToIgnore.indexOf(uKey) >= 0)
           ? request[key]
           : exports.camelCaseToUnderscoreRequest(request[key]);

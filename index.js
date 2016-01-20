@@ -95,6 +95,17 @@ module.exports.init = function() {
       if (opts.remove) {
         remove = remove.concat(typeof opts.remove === 'string' ? [opts.remove] : opts.remove);
       }
+      if (opts.keep) {
+        if (typeof opts.keep === 'string') {
+          opts.keep = [opts.keep];
+        }
+        for (var m in opts.keep) {
+          var idx = remove.indexOf(opts.keep[m]);
+          if (idx >= 0) {
+            remove.splice(idx, 1);
+          }
+        }
+      }
     }
 
     metaparser({

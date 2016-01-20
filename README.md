@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.1.7
+
+- 
+
 ### 0.1.6
 
 - Fix for `existing_manifest`.

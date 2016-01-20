@@ -6,18 +6,6 @@ var api = require('../index.js').init();
 var request = require('./request.json');
 var rimraf = require('rimraf');
 
-var markup = [
-  '<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">',
-  '<link rel="icon" type="image/png" href="favicons/favicon-160x160.png" sizes="160x160">'
-],
-opts = {
-  add: '<link rel="author" href="humans.txt" />',
-  remove: [
-    'link[href="favicons/favicon-192x192.png"]',
-    'link[href="favicons/favicon-160x160.png"]'
-  ]
-};
-
 var assert = require('assert');
 var path = require('path');
 var rfg = require('../index.js').init();
@@ -169,6 +157,54 @@ describe('RFG Api', function() {
       var fileContent = fs.readFileSync(path.join(__dirname, 'input', 'test_2.html'));
       rfg.injectFaviconMarkups(fileContent, markups, {}, function(error, html) {
         var expected = fs.readFileSync(path.join(__dirname, 'input', 'test_2_expected_output.html')).toString();
+        assert.equal(html, expected);
+
+        done();
+      });
+    });
+
+    it('should inject extra markups', function(done) {
+      var markups = [
+        '<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">',
+        '<link rel="icon" type="image/png" href="favicons/favicon-160x160.png" sizes="160x160">'
+      ];
+      var fileContent = fs.readFileSync(path.join(__dirname, 'input', 'test_2.html'));
+      rfg.injectFaviconMarkups(fileContent, markups, {
+        add: '<link content="an extra markup">'
+      }, function(error, html) {
+        var expected = fs.readFileSync(path.join(__dirname, 'input', 'test_2_expected_output_with_extra.html')).toString();
+        assert.equal(html, expected);
+
+        done();
+      });
+    });
+
+    it('should remove extra markups', function(done) {
+      var markups = [
+        '<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">',
+        '<link rel="icon" type="image/png" href="favicons/favicon-160x160.png" sizes="160x160">'
+      ];
+      var fileContent = fs.readFileSync(path.join(__dirname, 'input', 'test_2.html'));
+      rfg.injectFaviconMarkups(fileContent, markups, {
+        remove: ['meta[name="description"]']
+      }, function(error, html) {
+        var expected = fs.readFileSync(path.join(__dirname, 'input', 'test_2_expected_output_with_removal.html')).toString();
+        assert.equal(html, expected);
+
+        done();
+      });
+    });
+
+    it('should keep extra markups', function(done) {
+      var markups = [
+        '<link rel="icon" type="image/png" href="favicons/favicon-192x192.png" sizes="192x192">',
+        '<link rel="icon" type="image/png" href="favicons/favicon-160x160.png" sizes="160x160">'
+      ];
+      var fileContent = fs.readFileSync(path.join(__dirname, 'input', 'test_2.html'));
+      rfg.injectFaviconMarkups(fileContent, markups, {
+        keep: 'link[rel="icon"]'
+      }, function(error, html) {
+        var expected = fs.readFileSync(path.join(__dirname, 'input', 'test_2_expected_output_with_keeping.html')).toString();
         assert.equal(html, expected);
 
         done();

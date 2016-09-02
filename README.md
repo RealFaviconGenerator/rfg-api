@@ -17,9 +17,13 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.2.0
+
+- Switch from `unzip` to `unzip2`. See https://github.com/RealFaviconGenerator/rfg-api/issues/8
+
 ### 0.1.7
 
-- 
+- `injectFaviconMarkups` supports a `keep` option.
 
 ### 0.1.6
 

@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.2.1
+
+- Accept both base64 and file name for the "inline" type. See https://github.com/RealFaviconGenerator/rfg-api/issues/10
+
 ### 0.2.0
 
 - Switch from `unzip` to `unzip2`. See https://github.com/RealFaviconGenerator/rfg-api/issues/8

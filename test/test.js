@@ -288,11 +288,26 @@ describe('Request helpers', function() {
     });
   });
 
+  describe('#isBase64()', function() {
+    it('should indicate if a string is base64 or not', function() {
+      assert( rfg.isBase64('U29tZSByYW5kb20gY29udGVudA=='));
+      assert(!rfg.isBase64(path.join(__dirname, 'input', 'small_file.txt')));
+    });
+  });
+
   describe('#normalizeMasterPicture()', function() {
     it('should inline file content when necessary', function() {
       assert.deepEqual(rfg.normalizeMasterPicture({
         type: 'inline',
         content: path.join(__dirname, 'input', 'small_file.txt')
+      }), {
+        type: 'inline',
+        content: "U29tZSByYW5kb20gY29udGVudA=="
+      });
+
+      assert.deepEqual(rfg.normalizeMasterPicture({
+        type: 'inline',
+        content: 'U29tZSByYW5kb20gY29udGVudA=='
       }), {
         type: 'inline',
         content: "U29tZSByYW5kb20gY29udGVudA=="

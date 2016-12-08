@@ -181,12 +181,19 @@ module.exports.init = function() {
       startsWith(urlOrPath, '//');
   }
 
+  exports.isBase64 = function(content) {
+    return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(content);
+  }
+
   exports.normalizeMasterPicture = function(masterPicture) {
     var masterPictureObject = {};
     if (masterPicture.constructor === Object) {
       if ((masterPicture.type === 'inline') || (masterPicture.content !== undefined)) {
         masterPictureObject.type = 'inline';
-        masterPictureObject.content = exports.fileToBase64Sync(masterPicture.content);
+        masterPictureObject.content =
+          exports.isBase64(masterPicture.content)
+            ? masterPicture.content
+            : exports.fileToBase64Sync(masterPicture.content);
       }
       else if (masterPicture.url) {
         masterPictureObject.type = 'url';

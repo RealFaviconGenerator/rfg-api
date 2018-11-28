@@ -44,30 +44,27 @@ module.exports.init = function() {
       )
       .then(function(response) {
         var data = response.data;
-        if (response.status !== 200) {
-          var err = (
-            data &&
-            data.favicon_generation_result &&
-            data.favicon_generation_result.result &&
-            data.favicon_generation_result.result.error_message)
-            ? data.favicon_generation_result.result.error_message
-            : data;
-          callback(err);
-        }
-        else {
-          var writeStream = fstream.Writer(dest);
-          writeStream.on('close', function() {
-            callback(undefined, data.favicon_generation_result);
-          });
 
-          var parserStream = unzip.Parse();
-          var request = https.get(data.favicon_generation_result.favicon.package_url, function (response) {
-            response.pipe(parserStream).pipe(writeStream);
-          });
-        }
+        var writeStream = fstream.Writer(dest);
+        writeStream.on('close', function() {
+          callback(undefined, data.favicon_generation_result);
+        });
+
+        var parserStream = unzip.Parse();
+        var request = https.get(data.favicon_generation_result.favicon.package_url, function (response) {
+          response.pipe(parserStream).pipe(writeStream);
+        });
       })
       .catch(function(error) {
-        callback(error);
+        var err = (
+          error &&
+          error.data &&
+          error.data.favicon_generation_result &&
+          error.data.favicon_generation_result.result &&
+          error.data.favicon_generation_result.result.error_message)
+          ? error.data.favicon_generation_result.result.error_message
+          : error;
+        callback(err);
       });
     });
   };
@@ -278,12 +275,7 @@ module.exports.init = function() {
     var versionParam = (sinceVersion == undefined) ? '' : "?since=" + sinceVersion;
     axios.get("https://realfavicongenerator.net/api/versions" + versionParam)
     .then(function(response) {
-      if (response.status !== 200) {
-        callback("Response with status " + response.status, response);
-      }
-      else {
-        callback(undefined, response.data);
-      }
+      callback(undefined, response.data);
     })
     .catch(function(error) {
       callback(error);

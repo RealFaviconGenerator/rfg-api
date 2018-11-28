@@ -55,7 +55,7 @@ describe('RFG Api', function() {
   });
 
   describe('#generateFavicon()', function() {
-    this.timeout(15000);
+    this.timeout(20000);
 
     it('should generate a favicon', function(done) {
       rfg.fileToBase64(path.join(__dirname, 'input', 'master_picture.png'), function(error, base64) {

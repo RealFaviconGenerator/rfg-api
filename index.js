@@ -12,7 +12,6 @@ module.exports.init = function() {
   'use strict';
 
   var exports = {};
-  var Client = require('node-rest-client').Client;
   var https = require('https');
   var fs = require('fs');
   var unzip = require('unzip2');

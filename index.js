@@ -19,6 +19,7 @@ module.exports.init = function() {
   var metaparser = require('metaparser');
   var fstream = require('fstream');
   var mkdirp = require('mkdirp');
+  var axios = require('axios');
 
   exports.fileToBase64 = function(file, callback) {
     fs.readFile(file, { encoding: null }, function(error, file) {
@@ -36,19 +37,15 @@ module.exports.init = function() {
   };
 
   exports.generateFavicon = function(request, dest, callback) {
-    var client = new Client();
-    var args = {
-      data: {
-        "favicon_generation": request
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
     mkdirp(dest, function() {
-      client.post("https://realfavicongenerator.net/api/favicon", args, function(data, response) {
-        if (response.statusCode !== 200) {
+      axios.post(
+        "https://realfavicongenerator.net/api/favicon", {
+          "favicon_generation": request
+        }
+      )
+      .then(function(response) {
+        var data = response.data;
+        if (response.status !== 200) {
           var err = (
             data &&
             data.favicon_generation_result &&
@@ -56,18 +53,22 @@ module.exports.init = function() {
             data.favicon_generation_result.result.error_message)
             ? data.favicon_generation_result.result.error_message
             : data;
-          callback(err, args);
+          callback(err);
         }
+        else {
+          var writeStream = fstream.Writer(dest);
+          writeStream.on('close', function() {
+            callback(undefined, data.favicon_generation_result);
+          });
 
-        var writeStream = fstream.Writer(dest);
-        writeStream.on('close', function() {
-          callback(undefined, data.favicon_generation_result);
-        });
-
-        var parserStream = unzip.Parse();
-        var request = https.get(data.favicon_generation_result.favicon.package_url, function (response) {
-          response.pipe(parserStream).pipe(writeStream);
-        });
+          var parserStream = unzip.Parse();
+          var request = https.get(data.favicon_generation_result.favicon.package_url, function (response) {
+            response.pipe(parserStream).pipe(writeStream);
+          });
+        }
+      })
+      .catch(function(error) {
+        callback(error);
       });
     });
   };
@@ -275,20 +276,18 @@ module.exports.init = function() {
   };
 
   exports.changeLog = function(sinceVersion, callback) {
-    var client = new Client();
-    var args = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
     var versionParam = (sinceVersion == undefined) ? '' : "?since=" + sinceVersion;
-    client.post("https://realfavicongenerator.net/api/versions" + versionParam, args, function(data, response) {
-      if (response.statusCode !== 200) {
-        callback(data);
+    axios.get("https://realfavicongenerator.net/api/versions" + versionParam)
+    .then(function(response) {
+      if (response.status !== 200) {
+        callback("Response with status " + response.status, response);
       }
-
-      callback(undefined, data);
+      else {
+        callback(undefined, response.data);
+      }
+    })
+    .catch(function(error) {
+      callback(error);
     });
   };
 

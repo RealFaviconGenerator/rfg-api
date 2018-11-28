@@ -132,6 +132,14 @@ describe('RFG Api', function() {
         });
       });
     });
+
+    it('should fail on invalid request', function(done) {
+      var invalidReq = { };
+      rfg.generateFavicon(invalidReq, path.join(__dirname, 'output'), function(err, result) {
+        assert.notEqual(err, undefined);
+        done();
+      });
+    });
   });
 
   describe('#injectFaviconMarkups()', function() {

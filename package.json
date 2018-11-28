@@ -22,6 +22,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "fstream": "^1.0.2",
     "metaparser": "^1.0.7",
     "mkdirp": "^0.5.0",

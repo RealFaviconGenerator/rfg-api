@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.4.0
+
+- Switch from `node-rest-client` to `axios` in order to fix vulnerabilities introduced by `node-rest-client` dependencies. See https://github.com/RealFaviconGenerator/rfg-api/issues/14
+
 ### 0.3.0
 
 - Accept both base64 and file name for the "inline" type. See https://github.com/RealFaviconGenerator/rfg-api/issues/10

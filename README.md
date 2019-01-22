@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.5.0
+
+- Switch from `unzip2` to `node-unzip-2`. See https://github.com/RealFaviconGenerator/rfg-api/pull/15
+
 ### 0.4.0
 
 - Switch from `node-rest-client` to `axios` in order to fix vulnerabilities introduced by `node-rest-client` dependencies. See https://github.com/RealFaviconGenerator/rfg-api/issues/14

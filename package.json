@@ -26,7 +26,7 @@
     "fstream": "^1.0.2",
     "metaparser": "^1.0.7",
     "mkdirp": "^0.5.0",
-    "unzip2": "^0.2.5"
+    "node-unzip-2": "^0.2.7"
   },
   "keywords": [
     "node",

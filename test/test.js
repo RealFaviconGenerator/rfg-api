@@ -55,7 +55,7 @@ describe('RFG Api', function() {
   });
 
   describe('#generateFavicon()', function() {
-    this.timeout(20000);
+    this.timeout(30000);
 
     it('should generate a favicon', function(done) {
       rfg.fileToBase64(path.join(__dirname, 'input', 'master_picture.png'), function(error, base64) {
@@ -89,10 +89,21 @@ describe('RFG Api', function() {
           assert(fs.statSync(path.join(__dirname, 'output', 'apple-touch-icon.png')).isFile());
           assert(! fs.existsSync(path.join(__dirname, 'output', 'favicon.ico')));
 
+          // Note about html_code and overlapping_markups testing:
+          // these values are tested on RFG's API side.
+          // This is why the following tests do not check
+          // the actual values, only their presence and
+          // length concistency.
+
           // Make sure some code is returned
           assert(result.favicon.html_code);
           assert(result.favicon.html_code.length > 500);
           assert(result.favicon.html_code.length < 1500);
+
+          // And overlapping markups are listed
+          assert(result.favicon.overlapping_markups);
+          assert(result.favicon.overlapping_markups.length >= 1);
+          assert(result.favicon.overlapping_markups.length <= 5);
 
           done();
         });
@@ -127,6 +138,11 @@ describe('RFG Api', function() {
           assert(result.favicon.html_code);
           assert(result.favicon.html_code.length > 200);
           assert(result.favicon.html_code.length < 1000);
+
+          // And overlapping markups are listed
+          assert(result.favicon.overlapping_markups);
+          assert(result.favicon.overlapping_markups.length >= 1);
+          assert(result.favicon.overlapping_markups.length <= 5);
 
           done();
         });

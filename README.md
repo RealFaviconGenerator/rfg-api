@@ -17,6 +17,10 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.5.1
+
+- Update dependencies to fix vulnerabilities, see https://github.com/RealFaviconGenerator/rfg-api/pull/18, https://github.com/RealFaviconGenerator/rfg-api/pull/19, https://github.com/RealFaviconGenerator/rfg-api/pull/20 and https://github.com/RealFaviconGenerator/rfg-api/pull/21
+
 ### 0.5.0
 
 - Switch from `unzip2` to `node-unzip-2`. See https://github.com/RealFaviconGenerator/rfg-api/pull/15

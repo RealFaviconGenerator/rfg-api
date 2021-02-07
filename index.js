@@ -156,7 +156,8 @@ module.exports.init = function() {
           'app_name',
           'existing_manifest',
           'background_color',
-          'theme_color'];
+          'theme_color'
+        ];
         var newContent = (keysToIgnore.indexOf(uKey) >= 0)
           ? request[key]
           : exports.camelCaseToUnderscoreRequest(request[key]);

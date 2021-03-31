@@ -116,7 +116,11 @@ module.exports.init = function() {
   };
 
   exports.camelCaseToUnderscore = function(s) {
-    return s.replace(/(?:^|\.?)([A-Z])/g, function(x,y) {
+    // Regex will also insert an underscore before a digit if that digit is preceded by a lowercase letter and followed
+    //  by one or more additional digits, so it will insert an underscore before the "8" and the "1" in
+    //  "windows80Ie10Tile" (yielding "windows_80_ie_10_tile", but NOT before the "6" in "ios6AndPriorIcons" (yielding
+    //  "ios6_and_prior_icons").
+    return s.replace(/(?:^|\.?)([A-Z]|(?<=[a-z])\d(?=\d+))/g, function(x,y) {
       return "_" + y.toLowerCase()
     }).replace(/^_/, "");
   }
@@ -150,7 +154,10 @@ module.exports.init = function() {
           'app_description',
           'developer_name',
           'app_name',
-          'existing_manifest'];
+          'existing_manifest',
+          'background_color',
+          'theme_color'
+        ];
         var newContent = (keysToIgnore.indexOf(uKey) >= 0)
           ? request[key]
           : exports.camelCaseToUnderscoreRequest(request[key]);

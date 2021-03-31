@@ -17,6 +17,12 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.5.2
+
+- Update dependencies to fix vulnerabilities, see https://github.com/RealFaviconGenerator/rfg-api/pull/23, https://github.com/RealFaviconGenerator/rfg-api/pull/22 and https://github.com/RealFaviconGenerator/rfg-api/pull/21
+- Merge https://github.com/RealFaviconGenerator/rfg-api/pull/26 to fix https://github.com/RealFaviconGenerator/realfavicongenerator/issues/267, https://github.com/RealFaviconGenerator/gulp-real-favicon/issues/21 and https://github.com/RealFaviconGenerator/grunt-real-favicon/issues/43
+- Merge https://github.com/RealFaviconGenerator/rfg-api/pull/24 to fix https://github.com/RealFaviconGenerator/realfavicongenerator/issues/449 and https://github.com/RealFaviconGenerator/realfavicongenerator/issues/458
+
 ### 0.5.1
 
 - Update dependencies to fix vulnerabilities, see https://github.com/RealFaviconGenerator/rfg-api/pull/18, https://github.com/RealFaviconGenerator/rfg-api/pull/19, https://github.com/RealFaviconGenerator/rfg-api/pull/20 and https://github.com/RealFaviconGenerator/rfg-api/pull/21

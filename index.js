@@ -129,6 +129,9 @@ module.exports.init = function() {
     if (request === undefined) {
       return undefined;
     }
+    else if (request === null) {
+      return null;
+    }
     if (request.constructor === Array) {
       for (var i = 0; i < request.length; i++) {
         request[i] = exports.camelCaseToUnderscoreRequest(request[i]);

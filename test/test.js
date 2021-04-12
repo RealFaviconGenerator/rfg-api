@@ -259,6 +259,8 @@ describe('RFG Api', function() {
 
       assert.equal(rfg.camelCaseToUnderscoreRequest(undefined), undefined);
 
+      assert.equal(rfg.camelCaseToUnderscoreRequest(null), null);
+
       assert.deepEqual(rfg.camelCaseToUnderscoreRequest({
         firstEntry: 'firstValue',
         secondEntry: [

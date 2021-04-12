@@ -401,7 +401,8 @@ describe('Request helpers', function() {
             masterPicture: {
               content: path.join(__dirname, 'input', 'small_file.txt'),
             },
-            pictureAspect: 'noChange'
+            pictureAspect: 'noChange',
+            appName: null
           }
         }
       }),{
@@ -413,7 +414,8 @@ describe('Request helpers', function() {
               content: "U29tZSByYW5kb20gY29udGVudA==",
               type: 'inline'
             },
-            picture_aspect: 'no_change'
+            picture_aspect: 'no_change',
+            app_name: ''
           }
         },
         files_location: {

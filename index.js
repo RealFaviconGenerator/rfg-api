@@ -217,7 +217,10 @@ module.exports.init = function() {
   }
 
   exports.normalizeAllMasterPictures = function(request) {
-    if (request.constructor === Array) {
+    if (request === null) {
+      return '';
+    }
+    else if (request.constructor === Array) {
       for (var i = 0; i < request.length; i++) {
         request[i] = exports.normalizeAllMasterPictures(request[i]);
       }

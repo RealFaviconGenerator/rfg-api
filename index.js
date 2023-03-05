@@ -157,7 +157,8 @@ module.exports.init = function() {
           'existing_manifest',
           'background_color',
           'theme_color',
-          'desktop_browser'
+          'desktop_browser',
+          'master_picture'
         ];
         var newContent = (keysToIgnore.indexOf(uKey) >= 0)
           ? request[key]

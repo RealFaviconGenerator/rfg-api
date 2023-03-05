@@ -273,7 +273,8 @@ describe('RFG Api', function() {
         thirdEntry: {
           firstSubEntry: 'itsValue',
           secondSubEntry: 'anotherValue'
-        }
+        },
+        master_picture: '/path/to/MyPic.png'
       }), {
         first_entry: 'first_value',
         second_entry: [
@@ -288,7 +289,9 @@ describe('RFG Api', function() {
         third_entry: {
           first_sub_entry: 'its_value',
           second_sub_entry: 'another_value'
-        }
+        },
+        // File name should ne be escaped, see https://github.com/RealFaviconGenerator/rfg-api/issues/25
+        master_picture: '/path/to/MyPic.png'
       });
     });
   });

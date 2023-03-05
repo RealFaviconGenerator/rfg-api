@@ -17,6 +17,11 @@ npm install rfg-api --save
 
 ## Release History
 
+### 0.5.3
+
+- Fix https://github.com/RealFaviconGenerator/rfg-api/issues/25 regarding `master-picture`.
+- Several dependencies updated thanks to `npm audit fix`.
+
 ### 0.5.2
 
 - Update dependencies to fix vulnerabilities, see https://github.com/RealFaviconGenerator/rfg-api/pull/23, https://github.com/RealFaviconGenerator/rfg-api/pull/22 and https://github.com/RealFaviconGenerator/rfg-api/pull/21

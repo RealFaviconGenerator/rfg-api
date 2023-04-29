@@ -259,6 +259,8 @@ describe('RFG Api', function() {
 
       assert.equal(rfg.camelCaseToUnderscoreRequest(undefined), undefined);
 
+      assert.equal(rfg.camelCaseToUnderscoreRequest(null), null);
+
       assert.deepEqual(rfg.camelCaseToUnderscoreRequest({
         firstEntry: 'firstValue',
         secondEntry: [
@@ -404,7 +406,8 @@ describe('Request helpers', function() {
             masterPicture: {
               content: path.join(__dirname, 'input', 'small_file.txt'),
             },
-            pictureAspect: 'noChange'
+            pictureAspect: 'noChange',
+            appName: null
           }
         }
       }),{
@@ -416,7 +419,8 @@ describe('Request helpers', function() {
               content: "U29tZSByYW5kb20gY29udGVudA==",
               type: 'inline'
             },
-            picture_aspect: 'no_change'
+            picture_aspect: 'no_change',
+            app_name: ''
           }
         },
         files_location: {
